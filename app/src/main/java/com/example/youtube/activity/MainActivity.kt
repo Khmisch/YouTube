@@ -1,7 +1,10 @@
 package com.example.youtube.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var recyclerFeed: RecyclerView
     lateinit var recyclerShorts: RecyclerView
     lateinit var recyclerFilter: RecyclerView
+    lateinit var iv_youtube: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        iv_youtube = findViewById(R.id.iv_youtube)
         recyclerFeed = findViewById(R.id.recyclerFeed)
         recyclerFilter = findViewById(R.id.recyclerFilter)
         recyclerShorts = findViewById(R.id.recyclerShorts)
@@ -38,6 +43,15 @@ class MainActivity : AppCompatActivity() {
         refreshFeedAdapter(getAllFeeds())
         refreshStoryAdapter(getAllFilters())
         refreshShortsAdapter(getAllShorts())
+        iv_youtube.setOnClickListener( View.OnClickListener{
+            callDarkModeActivity()
+        })
+
+    }
+
+    private fun callDarkModeActivity() {
+        var intent = Intent(this, MainActivityWhite::class.java)
+        startActivity(intent)
     }
 
     private fun refreshFeedAdapter(chats: ArrayList<Feed>) {
@@ -58,11 +72,11 @@ class MainActivity : AppCompatActivity() {
     }
     private fun getAllFeeds(): ArrayList<Feed> {
         val chats: ArrayList<Feed> = ArrayList<Feed>()
-        chats.add(Feed(R.drawable.im_person_00, R.drawable.im_user_3))
-        chats.add(Feed(R.drawable.im_sample_007, R.drawable.im_video))
-        chats.add(Feed(R.drawable.im_person_me, R.drawable.im_video))
-        chats.add(Feed(R.drawable.im_person_ketty, R.drawable.im_katty_perry))
         chats.add(Feed(R.drawable.im_sample_007, R.drawable.im_user_3))
+        chats.add(Feed(R.drawable.im_person_me, R.drawable.im_user_4))
+        chats.add(Feed(R.drawable.im_sample_007, R.drawable.im_video))
+        chats.add(Feed(R.drawable.im_person_00, R.drawable.im_user_3))
+        chats.add(Feed(R.drawable.im_person_ketty, R.drawable.im_katty_perry))
 
         return chats
     }
